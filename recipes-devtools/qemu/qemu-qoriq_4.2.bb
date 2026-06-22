@@ -27,7 +27,7 @@ python() {
             d.appendVar('RREPLACES:' + p, ' ' + p.replace('-qoriq', ''))
 }
 
-RDEPENDS:${PN}:class-target += "bash"
+RDEPENDS:append:class-target = " bash"
 
 EXTRA_OECONF:append:class-target = " --target-list=${@get_qemu_target_list(d)}"
 EXTRA_OECONF:append:class-target:mipsarcho32 = "${@bb.utils.contains('BBEXTENDCURR', 'multilib', ' --disable-capstone', '', d)}"
@@ -49,7 +49,7 @@ do_install_ptest() {
             ${D}/${PTEST_PATH}/tests/qemu-iotests/common.env
 }
 
-PACKAGECONFIG ??= " \
+PACKAGECONFIG ??= "\
     fdt sdl kvm aio libusb vhost numa \
     ${@bb.utils.filter('DISTRO_FEATURES', 'alsa xen', d)} \
 "
