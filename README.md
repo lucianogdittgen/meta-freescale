@@ -40,6 +40,10 @@ For useful guidelines on submitting patches, please refer to the [Commit Patch M
 
 Pull requests will be discussed within the GitHub pull-request infrastructure. If you want to stay informed about new PRs and follow-up discussions, please use GitHub's notification system. Additionally, feel free to open GitHub issues for bug reports, feature requests, or general discussions.
 
+## Maintainer
+
+The meta-freescale maintainers review issues and pull requests through the GitHub project: meta-freescale@lists.yoctoproject.org.
+
 ## Communication
 
 - **GitHub Issues:** [meta-freescale issues](https://github.com/Freescale/meta-freescale/issues)
