@@ -9,7 +9,7 @@ LICENSE = "Apache-2.0 & BSD-3-Clause & Zlib"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=ff20c8e51b28869d9cdec70a818d163f \
                     file://${PSA_ARCH_TESTS_SRC_PATH}/LICENSE.md;md5=2a944942e1496af1886903d274dedb13"
 
-DEPENDS = " \
+DEPENDS = "\
     python3-cryptography-native \
     json-c \
     optee-client \
@@ -30,7 +30,9 @@ SRCREV_smw = "c643587073584057700f39098ab12f536a21600d"
 SRCREV_psa = "463cb95ada820bc6f758d50066cf8c0ed5cc3a02"
 SRCREV_FORMAT = "smw_psa"
 
-inherit cmake python3native
+inherit cmake features_check python3native
+
+REQUIRED_MACHINE_FEATURES = "optee"
 
 PACKAGECONFIG ??= "${PACKAGECONFIG_DRIVERS} ${PACKAGECONFIG_FEATURES}"
 PACKAGECONFIG_DRIVERS                = ""
@@ -59,11 +61,11 @@ LD[unexport] = "1"
 # setting the linker options
 TARGET_LDFLAGS:remove = "${DEBUG_PREFIX_MAP}"
 
-EXTRA_OECMAKE = " \
+EXTRA_OECMAKE = "\
     -DYOCTO_BUILD=ON \
     -DTA_DEV_KIT_ROOT=${TA_DEV_KIT_DIR} \
     -DTEEC_ROOT=${STAGING_DIR_HOST} \
-    -DJSONC_ROOT="${COMPONENTS_DIR}/${TARGET_ARCH}/json-c/usr" \
+    -DJSONC_ROOT="${COMPONENTS_DIR}/${TARGET_ARCH}/json-c/usr"\
     -DPSA_ARCH_TESTS_SRC_PATH=${PSA_ARCH_TESTS_SRC_PATH} \
     -DTEE_TA_DESTDIR=${nonarch_base_libdir} \
 "

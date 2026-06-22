@@ -10,14 +10,14 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=69663ab153298557a59c67a60a743e5b"
 
 inherit systemd update-rc.d cmake useradd
 
-SRC_URI = " \
+SRC_URI = "\
     git://github.com/OP-TEE/optee_client.git;branch=master;protocol=https \
     file://tee-supplicant.sh \
 "
 
 UPSTREAM_CHECK_GITTAGREGEX = "^(?P<pver>\d+(\.\d+)+)$"
 
-EXTRA_OECMAKE = " \
+EXTRA_OECMAKE = "\
     -DBUILD_SHARED_LIBS=ON \
     -DCFG_USE_PKGCONFIG=ON \
 "
@@ -25,9 +25,9 @@ EXTRA_OECMAKE = " \
 # libts uses /dev/tee devices too. Add a common variable to allow configuring the same group.
 TEE_GROUP_NAME ?= "tee"
 
-EXTRA_OECMAKE += " -DCFG_ENABLE_SYSTEMD=On -DSYSTEMD_UNIT_DIR=${systemd_system_unitdir}/"
-EXTRA_OECMAKE += " -DCFG_ENABLE_UDEV=On -DUDEV_UDEV_DIR=${nonarch_base_libdir}/udev/rules.d/"
-EXTRA_OECMAKE += " -DCFG_TEE_GROUP=${TEE_GROUP_NAME} -DCFG_TEEPRIV_GROUP=teepriv"
+EXTRA_OECMAKE += "-DCFG_ENABLE_SYSTEMD=On -DSYSTEMD_UNIT_DIR=${systemd_system_unitdir}/"
+EXTRA_OECMAKE += "-DCFG_ENABLE_UDEV=On -DUDEV_UDEV_DIR=${nonarch_base_libdir}/udev/rules.d/"
+EXTRA_OECMAKE += "-DCFG_TEE_GROUP=${TEE_GROUP_NAME} -DCFG_TEEPRIV_GROUP=teepriv"
 
 EXTRA_OECMAKE:append:toolchain-clang = " -DCFG_WERROR=0"
 
