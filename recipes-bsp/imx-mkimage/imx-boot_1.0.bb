@@ -5,7 +5,7 @@ require imx-mkimage_git.inc
 DESCRIPTION = "Generate Boot Loader for i.MX 8 device"
 LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/GPL-2.0-only;md5=801f80980d171dd6425610833a22dbe6"
-SECTION = "BSP"
+SECTION = "bsp"
 
 DEPENDS += "xxd-native"
 DEPENDS:append:mx8m-generic-bsp = " u-boot-mkimage-native dtc-native u-boot-mkeficapsule-native"
@@ -14,7 +14,7 @@ DEPENDS:append:mx95-generic-bsp = " u-boot-mkeficapsule-native"
 
 # This package aggregates output deployed by other packages,
 # so set the appropriate dependencies
-DEPENDS += " \
+DEPENDS += "\
     virtual/bootloader \
     ${IMX_EXTRA_FIRMWARE} \
     imx-atf \
@@ -25,7 +25,7 @@ DEPENDS += " \
 do_compile[deptask] = "do_deploy"
 do_compile[depends] += "${@bb.utils.contains('UBOOT_CONFIG', 'crrm', '${CRRM_INITRAMFS}:do_build', '', d)}"
 
-CRRM_DEPLOY_DEPENDS ?= " \
+CRRM_DEPLOY_DEPENDS ?= "\
     virtual/kernel \
     ${CRRM_INITRAMFS}"
 CRRM_INITRAMFS ??= "imx-image-crrm-initramfs"
@@ -81,30 +81,30 @@ SOC_FAMILY:mx95-generic-bsp   = "mx95"
 REV_OPTION ?= "REV=${IMX_SOC_REV_UPPER}"
 
 MKIMAGE_EXTRA_ARGS ?= ""
-MKIMAGE_EXTRA_ARGS:mx943-nxp-bsp ?= " \
+MKIMAGE_EXTRA_ARGS:mx943-nxp-bsp ?= "\
     OEI=YES \
     LPDDR_TYPE=${DDR_TYPE} \
     MSEL=${MSEL_TYPE} \
 "
-MKIMAGE_EXTRA_ARGS:mx95-nxp-bsp ?= " \
+MKIMAGE_EXTRA_ARGS:mx95-nxp-bsp ?= "\
     OEI=YES \
     LPDDR_TYPE=${DDR_TYPE} \
     ${@'LPDDR_FW_VERSION='+d.getVar('LPDDR_FW_VERSION') if d.getVar('LPDDR_FW_VERSION') else ''} \
     ${@bb.utils.contains('SYSTEM_MANAGER_CONFIG', 'mx95alt', 'MSEL=1', '', d)}"
-MKIMAGE_EXTRA_ARGS:imx95-19x19-lpddr5-frdm-pro ?= " \
+MKIMAGE_EXTRA_ARGS:imx95-19x19-lpddr5-frdm-pro ?= "\
     ${MKIMAGE_EXTRA_ARGS:mx95-nxp-bsp} \
     QSPI_HEADER=./scripts/fspi_header-W25Q512NWEIQ"
 
-MKIMAGE_EXTRA_ARGS:imx95-19x19-verdin ?= " \
+MKIMAGE_EXTRA_ARGS:imx95-19x19-verdin ?= "\
     ${MKIMAGE_EXTRA_ARGS:mx95-nxp-bsp} \
     QSPI_HEADER=./scripts/fspi_header_133"
-MKIMAGE_EXTRA_ARGS:imx95-a1-19x19-verdin ?= " \
+MKIMAGE_EXTRA_ARGS:imx95-a1-19x19-verdin ?= "\
     ${MKIMAGE_EXTRA_ARGS:imx95-19x19-verdin} \
 "
 
 UBOOT_DTB_BINARY ?= "u-boot.dtb"
 
-CRRM_FILES = " \
+CRRM_FILES = "\
     ${KERNEL_IMAGETYPE}.gz \
     ${KERNEL_IMAGETYPE}_crrm.gz \
     ${KERNEL_DEVICETREE_BASENAME}.dtb \

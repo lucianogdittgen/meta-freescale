@@ -1,14 +1,14 @@
 # Copyright (C) 2017-2026 NXP
 
 DESCRIPTION = "i.MX ARM Trusted Firmware"
-SECTION = "BSP"
+SECTION = "bsp"
 LICENSE = "BSD-3-Clause"
 LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/BSD-3-Clause;md5=550794465ba0ec5312d6919e203a55f9"
 
 PV .= "+git${SRCPV}"
 
 SRC_URI = "${ATF_SRC};branch=${SRCBRANCH} \
-	   file://0001-scmi-imx9-Remove-unused-tmp-pointer.patch \
+           file://0001-scmi-imx9-Remove-unused-tmp-pointer.patch \
 "
 ATF_SRC ?= "git://github.com/nxp-imx/imx-atf.git;protocol=https"
 SRCBRANCH = "lf_v2.12"
@@ -16,7 +16,7 @@ SRCREV = "4a2e9ef5f9f185bda68470b46365add008903b8c"
 
 inherit deploy
 
-PACKAGECONFIG ??= " \
+PACKAGECONFIG ??= "\
     ${@bb.utils.filter('UBOOT_CONFIG', 'crrm', d)} \
     ${@bb.utils.filter('MACHINE_FEATURES', 'optee', d)}"
 
@@ -30,7 +30,7 @@ ATF_PLATFORM ??= "INVALID"
 # base address in source code.
 ATF_BOOT_UART_BASE ?= ""
 
-EXTRA_OEMAKE += " \
+EXTRA_OEMAKE += "\
     CROSS_COMPILE=${TARGET_PREFIX} \
     PLAT=${ATF_PLATFORM} \
     ${PACKAGECONFIG_CONFARGS} \
