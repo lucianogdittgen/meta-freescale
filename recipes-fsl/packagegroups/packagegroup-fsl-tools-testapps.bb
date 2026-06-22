@@ -3,7 +3,7 @@
 # Released under the MIT license (see COPYING.MIT for the terms)
 
 DESCRIPTION = "Packagegroup used by FSL Community to provide a set of packages and utilities \
-for hardware test."
+               for hardware test."
 SUMMARY = "FSL Community packagegroup - tools/testapps"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
@@ -15,27 +15,26 @@ SOC_TOOLS_TEST:imx-nxp-bsp = "imx-test"
 SOC_TOOLS_TEST:imxgpu  = "imx-test imx-gpu-viv-demos"
 SOC_TOOLS_TEST:qoriq = "ceetm optee-test-qoriq"
 
-RDEPENDS:${PN} = " \
+WESTON_EXAMPLES = ""
+WESTON_EXAMPLES:imx-generic-bsp = "${@bb.utils.contains('DISTRO_FEATURES', 'wayland opengl', 'weston-examples', '', d)}"
+
+RDEPENDS:${PN} = "\
     alsa-utils \
     alsa-tools \
     dosfstools \
-    evtest \
     e2fsprogs-mke2fs \
     ${@bb.utils.contains('DISTRO_FEATURES', 'sysvinit', 'fsl-rc-local', '', d)} \
-    fbset \
+    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'openembedded-layer', 'fbset', '', d)} \
     i2c-tools \
     iproute2 \
-    memtester \
     python3-core \
     python3-json \
     python3-datetime \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'v4l-utils', '', d)} \
     ethtool \
     mtd-utils \
     mtd-utils-ubifs \
     ${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'gtk+3-demo', '', d)} \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', \
-                         'weston-examples', '', d)} \
+    ${WESTON_EXAMPLES} \
     ${SOC_TOOLS_TEST} \
 "
 

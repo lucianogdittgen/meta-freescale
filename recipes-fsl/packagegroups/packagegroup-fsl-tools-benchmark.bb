@@ -8,16 +8,4 @@ PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 inherit packagegroup
 
-RDEPENDS:${PN} = " \
-    lmbench \
-    bonnie++ \
-    dbench \
-    fio \
-    iozone3 \
-    iperf3 \
-    nbench-byte \
-    tiobench \
-    ${@bb.utils.contains('TUNE_FEATURES', 'neon',             'cpuburn-neon', \
-       bb.utils.contains('TUNE_FEATURES', 'cortexa53 crypto', 'cpuburn-neon', \
-                                                              '', d), d)} \
-"
+RDEPENDS:${PN} = ""

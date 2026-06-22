@@ -1,6 +1,6 @@
 DESCRIPTION = "A console-only image that includes gstreamer packages and \
-Freescale's multimedia packages (VPU and GPU) when available for the specific \
-machine."
+               Freescale's multimedia packages (VPU and GPU) when available for the specific \
+               machine."
 
 IMAGE_FEATURES += "\
     ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'weston', \
@@ -12,7 +12,7 @@ LICENSE = "MIT"
 
 inherit core-image
 
-CORE_IMAGE_EXTRA_INSTALL += " \
+CORE_IMAGE_EXTRA_INSTALL += "\
     packagegroup-fsl-tools-gpu \
     packagegroup-fsl-gstreamer1.0 \
     packagegroup-imx-tools-audio \
