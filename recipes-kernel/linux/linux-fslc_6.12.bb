@@ -6,15 +6,15 @@
 
 SUMMARY = "FSL Community BSP Linux mainline based kernel with backported features and fixes"
 DESCRIPTION = "Linux kernel based on mainline kernel used by FSL Community BSP in order to \
-provide support for some backported features and fixes, or because it was applied in linux-next \
-and takes some time to become part of a stable version, or because it is not applicable for \
-upstreaming."
+               provide support for some backported features and fixes, or because it was applied in linux-next \
+               and takes some time to become part of a stable version, or because it is not applicable for \
+               upstreaming."
 
 require linux-imx.inc
 
 SRC_URI = "git://github.com/Freescale/linux-fslc.git;branch=${KBRANCH};protocol=https"
 
-DEPENDS += " \
+DEPENDS += "\
     coreutils-native \
 "
 
