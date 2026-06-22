@@ -19,17 +19,15 @@ IMAGE_ROOTFS_SIZE ?= "8192"
 IMAGE_NAME_SUFFIX = ""
 
 # Filesystems enabled by default
-DEFAULT_FS_SUPPORT = " \
+DEFAULT_FS_SUPPORT = "\
     mtd \
     extfs \
 "
-
-IMAGE_FEATURES = " \
+IMAGE_FEATURES = "\
     ${DEFAULT_FS_SUPPORT} \
     \
     read-only-rootfs \
 "
-
 # Avoid installation of syslog
 BAD_RECOMMENDATIONS += "busybox-syslog"
 
@@ -38,6 +36,6 @@ USE_DEVFS = "1"
 
 inherit core-image
 
-CORE_IMAGE_BASE_INSTALL = " \
+CORE_IMAGE_BASE_INSTALL = "\
     ${CORE_IMAGE_EXTRA_INSTALL} \
 "

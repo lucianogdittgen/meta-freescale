@@ -1,5 +1,6 @@
 inherit features_check
-REQUIRED_DISTRO_FEATURES:e6500 += "multiarch"
+REQUIRED_DISTRO_FEATURES:append:e6500 = " multiarch"
+ERROR_QA:remove = "${@bb.utils.contains('BUILD_64BIT_KERNEL', '1', 'arch', '', d)}"
 
 python () {
     promote_kernel = d.getVar('BUILD_64BIT_KERNEL', False)
@@ -11,8 +12,4 @@ python () {
         d.setVar('KERNEL_CC', d.getVar('CCACHE', False) + sys_multilib + '-' + 'gcc' + d.getVar('HOST_CC_KERNEL_ARCH', False) + tc_options)
         d.setVar('KERNEL_LD', d.getVar('CCACHE', False) + sys_multilib + '-' + 'ld.bfd' + d.getVar('HOST_LD_KERNEL_ARCH', False) + tc_options)
         d.setVar('KERNEL_AR', d.getVar('CCACHE', False) + sys_multilib + '-' + 'ar' + d.getVar('HOST_AR_KERNEL_ARCH', False))
-
-    error_qa = d.getVar('ERROR_QA')
-    if 'arch' in error_qa:
-        d.setVar('ERROR_QA', error_qa.replace(' arch', ''))
 }

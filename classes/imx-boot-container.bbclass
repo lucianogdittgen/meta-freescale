@@ -32,25 +32,20 @@ ATF_MACHINE_NAME:append = "${@bb.utils.contains('MACHINE_FEATURES', 'optee', '-o
 OEI_NAME ?= "oei-${OEI_CORE}-*.bin"
 
 IMX_BOOT_CONTAINER_FIRMWARE_SOC ?= ""
-IMX_BOOT_CONTAINER_FIRMWARE_SOC:mx8mq-generic-bsp = " \
+IMX_BOOT_CONTAINER_FIRMWARE_SOC:mx8mq-generic-bsp = "\
     signed_dp_imx8m.bin \
     signed_hdmi_imx8m.bin \
-"
-IMX_BOOT_CONTAINER_FIRMWARE_SOC:mx91-generic-bsp = " \
+"IMX_BOOT_CONTAINER_FIRMWARE_SOC:mx91-generic-bsp = "\
     ${SECO_FIRMWARE_NAME} \
-"
-IMX_BOOT_CONTAINER_FIRMWARE_SOC:mx93-generic-bsp = " \
+"IMX_BOOT_CONTAINER_FIRMWARE_SOC:mx93-generic-bsp = "\
     ${SECO_FIRMWARE_NAME} \
-"
-IMX_BOOT_CONTAINER_FIRMWARE_SOC:mx95-generic-bsp = " \
+"IMX_BOOT_CONTAINER_FIRMWARE_SOC:mx95-generic-bsp = "\
     ${SECO_FIRMWARE_NAME} \
     ${OEI_NAME} \
-"
-IMX_BOOT_CONTAINER_FIRMWARE ?= " \
+"IMX_BOOT_CONTAINER_FIRMWARE ?= "\
     ${IMX_BOOT_CONTAINER_FIRMWARE_SOC} \
     ${DDR_FIRMWARE_NAME} \
 "
-
 # This package aggregates output deployed by other packages, so set the
 # appropriate dependencies for populate binaries task
 do_resolve_and_populate_binaries[depends] += " \
