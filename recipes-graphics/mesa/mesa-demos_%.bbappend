@@ -1,4 +1,4 @@
-FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
+FILESEXTRAPATHS:prepend:imxgpu := "${THISDIR}/${PN}:"
 
 SRC_URI:append:imxgpu = " \
     file://Replace-glWindowPos2iARB-calls-with-glWindowPos2i.patch \
@@ -9,18 +9,12 @@ SRC_URI:append:imxgpu = " \
 
 REQUIRED_DISTRO_FEATURES:remove:imxgpu = "x11"
 
-PACKAGECONFIG:remove = " \
-    ${PACKAGECONFIG_REMOVE_IF_2D_ONLY} \
-    ${PACKAGECONFIG_REMOVE_IF_GPU}"
-PACKAGECONFIG_REMOVE_IF_2D_ONLY          = ""
-PACKAGECONFIG_REMOVE_IF_2D_ONLY:imxgpu2d = "gles1 gles2"
-PACKAGECONFIG_REMOVE_IF_2D_ONLY:imxgpu3d = ""
-PACKAGECONFIG_REMOVE_IF_GPU              = ""
-PACKAGECONFIG_REMOVE_IF_GPU:imxgpu       = "x11"
+PACKAGECONFIG:remove:imxgpu2d = "gles1 gles2"
+PACKAGECONFIG:remove:imxgpu = "x11"
 
-PACKAGECONFIG:append = " \
-    ${PACKAGECONFIG_APPEND_IF_GPU}"
-PACKAGECONFIG_APPEND_IF_GPU        = ""
-PACKAGECONFIG_APPEND_IF_GPU:imxgpu = "glu"
+PACKAGECONFIG:append:imxgpu = " glu"
 
-PACKAGECONFIG[glu] = ",,libglu"
+python () {
+    if 'imxgpu' in (d.getVar('OVERRIDES') or '').split(':'):
+        d.setVarFlag('PACKAGECONFIG', 'glu', ',,libglu')
+}
