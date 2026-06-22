@@ -6,7 +6,9 @@ RDEPENDS:${PN} = "bash libcrypto libssl"
 
 DEPENDS += "python3-pycryptodomex-native"
 
-inherit python3native
+inherit features_check python3native
+
+REQUIRED_MACHINE_FEATURES = "optee"
 
 LDFLAGS += "${TOOLCHAIN_OPTIONS}"
 

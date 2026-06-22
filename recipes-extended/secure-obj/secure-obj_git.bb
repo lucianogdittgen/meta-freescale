@@ -2,9 +2,9 @@ require secure-obj.inc
 
 LIC_FILES_CHKSUM = "file://LICENSE;md5=751419260aa954499f7abaabaa882bbe"
 
-DEPENDS:remove = " python3-pycryptodomex-native"
+DEPENDS:remove = "python3-pycryptodomex-native"
 DEPENDS:append = " python3-cryptography-native optee-os-qoriq-tadevkit"
-RDEPENDS:{PN}  += "secure-obj-module"
+RDEPENDS:${PN} += "secure-obj-module"
 
 WRAP_TARGET_PREFIX ?= "${TARGET_PREFIX}"
 export SECURE_STORAGE_PATH = "${S}/secure_storage_ta/ta/"
@@ -24,12 +24,12 @@ do_compile() {
         for APP in  secure_storage_ta securekey_lib secure_obj-openssl-engine; do
             cd  ${APP}
             oe_runmake
-	    cd ..
+        cd ..
         done
 }
 
 do_install() {
-	install -d ${D}${bindir}
+    install -d ${D}${bindir}
         install -d ${D}${includedir}
         install -d ${D}${base_libdir}/optee_armtz
         install -d ${D}${libdir}/${ARCH}-linux-gnu/openssl-1.0.0/engines
