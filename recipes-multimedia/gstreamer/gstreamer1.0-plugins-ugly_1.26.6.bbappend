@@ -1,1 +1,1 @@
-PACKAGECONFIG:remove = "a52dec mpeg2dec"
+PACKAGECONFIG:remove:imx-nxp-bsp = "a52dec mpeg2dec"

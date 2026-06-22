@@ -1,8 +1,8 @@
 SUMMARY = "VA-API support to GStreamer"
 HOMEPAGE = "https://gstreamer.freedesktop.org/"
 DESCRIPTION = "gstreamer-vaapi consists of a collection of VA-API \
-based plugins for GStreamer and helper libraries: `vaapidecode', \
-`vaapiconvert', and `vaapisink'."
+               based plugins for GStreamer and helper libraries: `vaapidecode', \
+               `vaapiconvert', and `vaapisink'."
 
 REALPN = "gstreamer-vaapi"
 
@@ -20,7 +20,7 @@ inherit meson pkgconfig features_check upstream-version-is-even
 
 REQUIRED_DISTRO_FEATURES ?= "opengl"
 
-EXTRA_OEMESON += " \
+EXTRA_OEMESON += "\
     -Ddoc=disabled \
     -Dexamples=disabled \
     -Dtests=enabled \

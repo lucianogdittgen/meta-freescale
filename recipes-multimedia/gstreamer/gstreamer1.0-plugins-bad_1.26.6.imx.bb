@@ -26,7 +26,7 @@ DEPENDS += "gstreamer1.0-plugins-base"
 
 inherit gobject-introspection
 
-PACKAGECONFIG ??= " \
+PACKAGECONFIG ??= "\
     ${GSTREAMER_ORC} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'bluetooth', 'bluez', '', d)} \
     ${@bb.utils.filter('DISTRO_FEATURES', 'directfb vulkan x11', d)} \
@@ -104,7 +104,7 @@ PACKAGECONFIG[x265]            = "-Dx265=enabled,-Dx265=disabled,x265"
 
 GSTREAMER_GPL = "${@bb.utils.filter('PACKAGECONFIG', 'faad resindvd x265', d)}"
 
-EXTRA_OEMESON += " \
+EXTRA_OEMESON += "\
     -Ddoc=disabled \
     -Daes=enabled \
     -Dcodecalpha=enabled \
@@ -179,14 +179,14 @@ DEFAULT_PREFERENCE = "-1"
 LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=69333daa044cb77e486cc36129f7a770"
 
 SRC_URI:remove = "https://gstreamer.freedesktop.org/src/gst-plugins-bad/gst-plugins-bad-${PV}.tar.xz \
-           file://0001-fix-maybe-uninitialized-warnings-when-compiling-with.patch \
-           file://0002-avoid-including-sys-poll.h-directly.patch \
-           file://0004-opencv-resolve-missing-opencv-data-dir-in-yocto-buil.patch \
-           "
+                  file://0001-fix-maybe-uninitialized-warnings-when-compiling-with.patch \
+                  file://0002-avoid-including-sys-poll.h-directly.patch \
+                  file://0004-opencv-resolve-missing-opencv-data-dir-in-yocto-buil.patch \
+                  "
 SRC_URI:prepend = "${GST1.0-PLUGINS-BAD_SRC};branch=${SRCBRANCH} "
 
-SRC_URI:append:mx93-nxp-bsp = "file://0001-MMFMWK-9590-gstcuda-disable-gir-build-for-cuda-plugi.patch"
-SRC_URI:append:mx943-nxp-bsp = "file://0001-MMFMWK-9590-gstcuda-disable-gir-build-for-cuda-plugi.patch"
+SRC_URI:append:mx93-nxp-bsp = " file://0001-MMFMWK-9590-gstcuda-disable-gir-build-for-cuda-plugi.patch"
+SRC_URI:append:mx943-nxp-bsp = " file://0001-MMFMWK-9590-gstcuda-disable-gir-build-for-cuda-plugi.patch"
 
 GST1.0-PLUGINS-BAD_SRC ?= "gitsm://github.com/nxp-imx/gst-plugins-bad.git;protocol=https"
 SRCBRANCH = "MM_04.10.03_2512_L6.18.2"
@@ -197,7 +197,7 @@ inherit use-imx-headers
 PACKAGE_ARCH:imxpxp = "${MACHINE_SOCARCH}"
 PACKAGE_ARCH:mx8-nxp-bsp = "${MACHINE_SOCARCH}"
 
-PACKAGECONFIG_REMOVE ?= " \
+PACKAGECONFIG_REMOVE ?= "\
     dtls vulkan \
     ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', '', 'gl', d)} \
 "
@@ -213,11 +213,11 @@ PACKAGECONFIG_G2D:imxgpu2d ??= "g2d"
 PACKAGECONFIG[g2d] = ",,virtual/libg2d"
 PACKAGECONFIG[tinycompress]    = "-Dtinycompress=enabled,-Dtinycompress=disabled,tinycompress"
 
-EXTRA_OEMESON += " \
-    -Dc_args="${CFLAGS} -I${STAGING_INCDIR_IMX}" \
+EXTRA_OEMESON += "\
+    -Dc_args="${CFLAGS} -I${STAGING_INCDIR_IMX}"\
 "
 
-EXTRA_OEMESON:remove = " \
+EXTRA_OEMESON:remove = "\
     -Dkate=disabled \
 "
 

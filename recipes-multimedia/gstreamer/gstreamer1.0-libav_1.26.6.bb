@@ -1,6 +1,6 @@
 SUMMARY = "Libav-based GStreamer 1.x plugin"
 DESCRIPTION = "Contains a GStreamer plugin for using the encoders, decoders, \
-muxers, and demuxers provided by FFmpeg."
+               muxers, and demuxers provided by FFmpeg."
 HOMEPAGE = "http://gstreamer.freedesktop.org/"
 SECTION = "multimedia"
 
@@ -20,7 +20,7 @@ DEPENDS = "gstreamer1.0 gstreamer1.0-plugins-base ffmpeg"
 
 inherit meson pkgconfig upstream-version-is-even
 
-EXTRA_OEMESON += " \
+EXTRA_OEMESON += "\
     -Dtests=disabled \
 "
 
