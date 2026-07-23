@@ -2,9 +2,13 @@
 # Copyright 2018 (C) O.S. Systems Software LTDA.
 # Copyright 2017-2026 NXP
 
+# nooelint: oelint.file.requirenotfound
 require recipes-bsp/u-boot/u-boot.inc
 require u-boot-imx-common_${PV}.inc
+
+SUMMARY = "U-Boot for NXP i.MX reference boards"
 HOMEPAGE = "https://github.com/nxp-imx/uboot-imx"
+SECTION = "bootloaders"
 
 PROVIDES += "u-boot u-boot-mfgtool"
 

@@ -1,8 +1,10 @@
+# nooelint: oelint.file.requirenotfound
 require recipes-bsp/u-boot/u-boot.inc
 
-DESCRIPTION = "U-Boot provided by Freescale with focus on QorIQ boards"
+SUMMARY = "U-Boot provided by Freescale with focus on QorIQ boards"
+DESCRIPTION = "U-Boot bootloader for NXP/Freescale QorIQ processors, tracking the vendor u-boot tree with QorIQ board support and boot-format packaging."
 HOMEPAGE = "https://github.com/nxp-qoriq/u-boot"
-PROVIDES += "u-boot"
+SECTION = "bootloaders"
 
 inherit fsl-u-boot-localversion
 
@@ -15,7 +17,19 @@ LIC_FILES_CHKSUM = "\
     file://Licenses/lgpl-2.1.txt;md5=4fbd65380cdd255951079008b364516c \
 "
 
+INHIBIT_DEFAULT_DEPS = "1"
+# nooelint: oelint.vars.dependsappend
+DEPENDS = "bc-native bison-native gnutls-native libgcc python3-native swig-native virtual/cross-cc"
+DEPENDS:append:qoriq-arm64 = " dtc-native"
+DEPENDS:append:qoriq-arm = " dtc-native"
+DEPENDS:append:qoriq-ppc = " boot-format-native"
+
+PROVIDES += "u-boot"
+
+# nooelint: oelint.vars.inconspaces
 PV:append = "+${SRCPV}"
+# nooelint: oelint.vars.inconspaces
+PV:append = "+fslgit"
 
 UBOOT_BRANCH ?= "lf_v2025.04"
 UBOOT_SRC ?= "git://github.com/nxp-qoriq/u-boot.git;protocol=https"
@@ -23,15 +37,9 @@ SRC_URI = "${UBOOT_SRC};branch=${UBOOT_BRANCH}"
 SRCREV = "4ddbad60eff308a5b356fb9ab8734ac382ddd692"
 
 B = "${UNPACKDIR}/build"
-PV:append = "+fslgit"
 LOCALVERSION = "+fsl"
 
-INHIBIT_DEFAULT_DEPS = "1"
-DEPENDS = "bc-native bison-native gnutls-native libgcc python3-native swig-native virtual/cross-cc"
-DEPENDS:append:qoriq-arm64 = " dtc-native"
-DEPENDS:append:qoriq-arm = " dtc-native"
-DEPENDS:append:qoriq-ppc = " boot-format-native"
-
+# nooelint: oelint.task.noanonpython
 python () {
     if d.getVar("TCMODE") == "external-fsl":
         return

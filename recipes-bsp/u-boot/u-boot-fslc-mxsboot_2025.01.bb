@@ -1,10 +1,13 @@
+# nooelint: oelint.file.requirenotfound
 require u-boot-fslc-common_${PV}.inc
 
-DESCRIPTION = "U-boot bootloader mxsboot tool"
+SUMMARY = "U-Boot mxsboot boot stream tool"
+DESCRIPTION = "The mxsboot tool from U-Boot, used to generate i.MXS (mxs) boot streams for booting from NAND or SD on i.MX23/i.MX28 devices."
 SECTION = "bootloader"
 
 inherit python3native
 
+# nooelint: oelint.vars.dependsordered
 DEPENDS += "\
     dtc \
     gnutls \
