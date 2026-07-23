@@ -25,7 +25,13 @@ layer=$(cd -- "$here/../.." && pwd)
 # and the relative constants path below is stable.
 cd -- "$layer"
 
+# Skip the verbatim i.MX BSP forks (recipes whose PV ends in '.imx'). These are
+# maintained as byte-for-byte copies of NXP's downstream recipes so they can be
+# refreshed wholesale on each i.MX BSP uprev; editing them to satisfy the linter
+# would diverge them from upstream and break that refresh. Linting them therefore
+# only produces findings that cannot be acted on, so they are out of lint scope.
 files=$(find . \
+    ! -name '*.imx.bb' ! -name '*.imx.bbappend' ! -name '*.imx.inc' \
     \( -name '*.bb' -o -name '*.bbappend' -o -name '*.bbclass' -o -name '*.inc' \) \
     | sort)
 
