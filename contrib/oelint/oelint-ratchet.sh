@@ -19,6 +19,10 @@
 # as new findings. Counts are significant: a second instance of the same rule in
 # the same file is a new finding.
 #
+# Findings in metadata copied verbatim from another layer are excluded outright
+# (see oelint-mirror-scope.py) - they are upstream's to fix, and scoping them out
+# keeps a mirror re-sync from turning the gate red.
+#
 # Usage:
 #   oelint-ratchet.sh            check current tree against the baseline (CI)
 #   oelint-ratchet.sh --update   regenerate the baseline from the current tree
@@ -36,8 +40,18 @@ driver="$here/run-oelint.sh"
 # baseline is stable across checkouts; line numbers and messages are dropped so
 # unrelated line shifts do not read as new findings. run-oelint.sh exits
 # non-zero whenever findings exist, so guard the pipeline with '|| true'.
+#
+# oelint-mirror-scope.py drops findings that sit in metadata copied from another
+# layer - whole-file mirrors ('Copied from ...') and the fenced upstream half of
+# the fork recipes. Those are not ours to fix, and keeping them out of the
+# baseline is what makes re-syncing a mirror from upstream a no-op for this
+# gate: otherwise a faithful re-sync arrives as a wall of new findings, and the
+# only way to get CI green would be regenerating the whole baseline, which also
+# silently accepts any genuine regression in the same change. It must run before
+# the awk below, because it needs the line numbers that normalisation discards.
 current_findings() {
     "$driver" --quiet --output /dev/stdout 2>/dev/null \
+        | "$here/oelint-mirror-scope.py" --layer "$layer" --filter \
         | awk -F: -v pfx="$layer/" '
             NF>=4 && $4 ~ /^oelint\./ {
                 p = $1
