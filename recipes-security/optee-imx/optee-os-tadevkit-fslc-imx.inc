@@ -7,6 +7,13 @@ SUMMARY = "OP-TEE Trusted OS TA devkit"
 DESCRIPTION = "OP-TEE TA devkit for build TAs"
 HOMEPAGE = "https://www.op-tee.org/"
 
+# Mirrors NXP meta-imx optee-os-tadevkit-imx.inc: this imx-specific TA-devkit
+# dependency is appended in the imx layer on top of the meta-arm-derived base
+# (optee-os-fslc.inc) DEPENDS. The analyzer concatenates across the include chain
+# and demands one global alphabetical order, but pycryptodome cannot join the
+# base list without diverging from the BSP source and moving an imx-only dep into
+# the meta-arm mirror; the additive += in the imx layer is the correct form.
+# nooelint: oelint.vars.dependsordered
 DEPENDS += "python3-pycryptodome-native"
 
 do_install() {
