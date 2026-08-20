@@ -9,6 +9,11 @@ SECTION = "bsp"
 LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/GPL-2.0-only;md5=801f80980d171dd6425610833a22dbe6"
 
+# DEPENDS is built in logical groups -- base native-tool deps in the include,
+# this xxd-native build tool, and the aggregated firmware/bootloader deps below
+# with their computed ${...} fragments. oelint sorts the merged expanded tokens,
+# for which no single alphabetical order across the groups is meaningful.
+# nooelint: oelint.vars.dependsordered
 DEPENDS += "xxd-native"
 DEPENDS:append:mx8m-generic-bsp = " u-boot-mkimage-native dtc-native u-boot-mkeficapsule-native"
 DEPENDS:append:mx93-generic-bsp = " u-boot-mkimage-native dtc-native u-boot-mkeficapsule-native"
