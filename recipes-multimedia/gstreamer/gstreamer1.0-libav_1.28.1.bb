@@ -11,6 +11,9 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=69333daa044cb77e486cc36129f7a770 \
                     file://ext/libav/gstav.h;beginline=1;endline=18;md5=a752c35267d8276fd9ca3db6994fca9c \
                     "
 
+# Mirror of oe-core's gstreamer1.0-libav, version-pinned to 1.28.1; DEPENDS
+# ordering is kept identical to oe-core to avoid divergence when re-syncing.
+# nooelint: oelint.vars.dependsordered
 DEPENDS = "gstreamer1.0 gstreamer1.0-plugins-base ffmpeg"
 
 SRC_URI = "https://gstreamer.freedesktop.org/src/gst-libav/gst-libav-${PV}.tar.xz"
