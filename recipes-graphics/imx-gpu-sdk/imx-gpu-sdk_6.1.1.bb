@@ -22,6 +22,11 @@ DEPENDS_MX8:mx8-nxp-bsp = "\
 DEPENDS_MX8:mx8mm-nxp-bsp = "\
     opencv \
 "
+# Static build dependencies are alphabetised; the conditional ${DEPENDS_BACKEND}
+# and ${DEPENDS_MX8} fragments are appended last by design. oelint sorts the
+# expanded token list, where a leading ${ lands ahead of the names -- not a
+# meaningful dependency order.
+# nooelint: oelint.vars.dependsordered
 DEPENDS = "\
     assimp \
     cmake-native \
@@ -132,6 +137,10 @@ RDEPENDS_EMPTY_MAIN_PACKAGE_MX8:mx8mm-nxp-bsp = ""
 RDEPENDS_VULKAN_LOADER = ""
 RDEPENDS_VULKAN_LOADER:mx8-nxp-bsp = "vulkan-loader vulkan-validation-layers"
 RDEPENDS_VULKAN_LOADER:mx8mm-nxp-bsp = ""
+# Runtime deps are grouped base-then-SoC-variant. oelint's lexical sort would put
+# ${RDEPENDS_EMPTY_MAIN_PACKAGE_MX8} ahead of its ${RDEPENDS_EMPTY_MAIN_PACKAGE}
+# base (_ sorts before }), which is backwards; keep the readable grouping.
+# nooelint: oelint.vars.dependsordered
 RDEPENDS:${PN} += "\
     ${RDEPENDS_EMPTY_MAIN_PACKAGE} \
     ${RDEPENDS_EMPTY_MAIN_PACKAGE_MX8} \
