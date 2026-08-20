@@ -2,6 +2,11 @@
 # See: https://github.com/nxp-imx/imx-manifest/blob/imx-linux-whinlatter/imx-6.18.2-1.0.0.xml#L39
 require optee-test-fslc.inc
 
+# Mirrors NXP meta-imx optee-test-imx.inc, which appends openssl on top of the
+# meta-arm optee-test base (optee-test-fslc.inc) that already lists it. The entry
+# is a harmless redundant DEPENDS kept verbatim for parity with the BSP source;
+# the analyzer sorts this trailing duplicate ahead of the base entries.
+# nooelint: oelint.vars.dependsordered
 DEPENDS += "openssl"
 
 inherit features_check
