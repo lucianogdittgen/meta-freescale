@@ -5,6 +5,12 @@ SECTION = "bootloader"
 
 inherit python3native
 
+# These entries are already ordered, but DEPENDS accumulates across the shared
+# u-boot-fslc-common.inc (which appends bison-native flex-native) and this
+# variant's block. The two additive += groups cannot form one global
+# alphabetical order without merging the shared-common deps into each variant,
+# so the ordering check cannot be satisfied structurally here.
+# nooelint: oelint.vars.dependsordered
 DEPENDS += "\
     dtc \
     gnutls \
