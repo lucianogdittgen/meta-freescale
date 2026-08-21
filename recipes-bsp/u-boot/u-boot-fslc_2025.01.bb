@@ -7,6 +7,12 @@ DESCRIPTION = "U-Boot based on mainline U-Boot used by FSL Community BSP in \
                version, or because it is not applicable for upstreaming."
 SECTION = "bootloaders"
 
+# DEPENDS accumulates across u-boot-fslc-common.inc (which appends bison-native
+# flex-native for every fslc u-boot variant) and these recipe-specific build
+# tools. The analyzer concatenates both additive += groups and demands one
+# global alphabetical order, which is unattainable without collapsing the
+# shared-common/variant split; the += is the correct additive form.
+# nooelint: oelint.vars.dependsordered
 DEPENDS += "bc-native dtc-native python3-setuptools-native gnutls-native"
 
 PROVIDES += "u-boot u-boot-mfgtool"
