@@ -27,6 +27,13 @@ SRCREV = "e2e7c015cee997b9f992376fd2c29fa2d8813e1b"
 
 PE = "1"
 
+# Verbatim from the meta-openembedded copy above (see header): meta-oe's
+# libcamera recipe carries this identical DEPENDS, including the repeated
+# python3-jinja2-native and this ordering. Kept as-is to preserve the copy;
+# BitBake de-duplicates DEPENDS internally, so the repeat is harmless. The
+# conditional qt append is a computed ${@...} the analyzer cannot order.
+# UPSTREAM-PARITY.
+# nooelint: oelint.vars.dependsordered
 DEPENDS = "python3-pyyaml-native python3-jinja2-native python3-ply-native python3-jinja2-native udev gnutls chrpath-native libevent libyaml"
 DEPENDS += "${@bb.utils.contains('DISTRO_FEATURES', 'qt', 'qtbase qtbase-native', '', d)}"
 
