@@ -205,27 +205,35 @@ FILES:${PN}-staticdev += "${libdir}/opencv4/3rdparty/*.a"
 # opencv_4.13.0.bb to avoid fork drift; suppress the append-preference warning.
 # nooelint: oelint.var.filesoverride
 FILES:${PN}-apps = "${bindir}/* ${datadir}/opencv4 ${datadir}/licenses"
-# nooelint: oelint.var.filesoverride
+# ${PN}-java and ${PN}-samples enter PACKAGES only through the computed
+# PACKAGECONFIG bb.utils.contains expressions above, which oelint cannot resolve
+# statically.
+# nooelint: oelint.var.filesoverride,oelint.vars.specific
 FILES:${PN}-java = "${datadir}/OpenCV/java"
-# nooelint: oelint.var.filesoverride
+# nooelint: oelint.var.filesoverride,oelint.vars.specific
 FILES:${PN}-samples = "${datadir}/opencv4/samples/"
 
 # Kept byte-identical to meta-openembedded meta-oe/recipes-support/opencv/
 # opencv_*.bb (the verbatim copy section above). Diverging from the upstream
 # recipe to satisfy this check would create fork drift on every re-sync.
 # UPSTREAM-PARITY.
-# nooelint: oelint.vars.insaneskip
+# nooelint: oelint.vars.insaneskip,oelint.vars.specific
 INSANE_SKIP:${PN}-java = "libdir"
 # nooelint: oelint.vars.insaneskip
 INSANE_SKIP:${PN}-dbg = "libdir"
 
 ALLOW_EMPTY:${PN} = "1"
 
+# python3-opencv enters PACKAGES as python3-${BPN} (BPN == opencv) through a
+# computed PACKAGECONFIG expression above; oelint cannot equate the literal
+# override with the ${BPN} form statically.
+# nooelint: oelint.vars.specific
 SUMMARY:python3-opencv = "Python bindings to opencv"
 # Recipe-specific split package (no default FILES); '=' is a complete definition.
 # Kept byte-identical to meta-oe opencv_4.13.0.bb to avoid fork drift.
-# nooelint: oelint.var.filesoverride
+# nooelint: oelint.var.filesoverride,oelint.vars.specific
 FILES:python3-opencv = "${PYTHON_SITEPACKAGES_DIR}/*"
+# nooelint: oelint.vars.specific
 RDEPENDS:python3-opencv = "python3-core python3-numpy"
 
 RDEPENDS:${PN}-apps = "bash"
