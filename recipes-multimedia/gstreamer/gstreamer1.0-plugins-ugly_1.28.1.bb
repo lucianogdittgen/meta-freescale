@@ -40,5 +40,10 @@ EXTRA_OEMESON += "\
     -Dsidplay=disabled \
 "
 
+# The ${PN}-<plugin> packages are generated dynamically by the shared
+# gstreamer1.0-plugins-common.inc (PACKAGES_DYNAMIC "^${PN}-.*" plus the
+# per-plugin split), which oelint cannot resolve statically.
+# nooelint: oelint.vars.specific
 FILES:${PN}-amrnb += "${datadir}/gstreamer-1.0/presets/GstAmrnbEnc.prs"
+# nooelint: oelint.vars.specific
 FILES:${PN}-x264 += "${datadir}/gstreamer-1.0/presets/GstX264Enc.prs"
