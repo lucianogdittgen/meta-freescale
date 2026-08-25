@@ -30,8 +30,14 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=a6f89e2100d9b6cdffcea4f398e37343 \
                     file://gst/replaygain/rganalysis.c;beginline=1;endline=23;md5=b60ebefd5b2f5a8e0cab6bfee391a5fe"
 
 DEPENDS += "gstreamer1.0-plugins-base libcap zlib"
+# The ${PN}-<plugin> packages are generated dynamically by the shared
+# gstreamer1.0-plugins-common.inc (PACKAGES_DYNAMIC "^${PN}-.*" plus the
+# per-plugin split), which oelint cannot resolve statically.
+# nooelint: oelint.vars.specific
 RPROVIDES:${PN}-pulseaudio += "${PN}-pulse"
+# nooelint: oelint.vars.specific
 RPROVIDES:${PN}-soup += "${PN}-souphttpsrc"
+# nooelint: oelint.vars.specific
 RDEPENDS:${PN}-soup += "${MLPREFIX}${@bb.utils.contains('PACKAGECONFIG', 'soup2', 'libsoup-2.4', 'libsoup', d)}"
 
 PACKAGECONFIG_SOUP ?= "soup3"
@@ -91,6 +97,8 @@ EXTRA_OEMESON += "\
     -Dwaveform=disabled \
 "
 
+# ${PN}-equalizer is a dynamically split plugin package (see note above).
+# nooelint: oelint.vars.specific
 FILES:${PN}-equalizer += "${datadir}/gstreamer-1.0/presets/*.prs"
 
 ########### End of OE-core copy ###########
