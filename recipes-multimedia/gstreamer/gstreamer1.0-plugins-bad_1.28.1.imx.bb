@@ -168,9 +168,16 @@ export OPENCV_PREFIX = "${STAGING_DIR_TARGET}${prefix}"
 ARM_INSTRUCTION_SET:armv4 = "arm"
 ARM_INSTRUCTION_SET:armv5 = "arm"
 
+# The ${PN}-<plugin> packages are generated dynamically by the shared
+# gstreamer1.0-plugins-common.inc (PACKAGES_DYNAMIC "^${PN}-.*" plus the
+# per-plugin split), which oelint cannot resolve statically.
+# nooelint: oelint.vars.specific
 FILES:${PN}-freeverb += "${datadir}/gstreamer-1.0/presets/GstFreeverb.prs"
+# nooelint: oelint.vars.specific
 FILES:${PN}-opencv += "${datadir}/gst-plugins-bad/1.0/opencv*"
+# nooelint: oelint.vars.specific
 FILES:${PN}-transcode += "${datadir}/gstreamer-1.0/encoding-profiles"
+# nooelint: oelint.vars.specific
 FILES:${PN}-voamrwbenc += "${datadir}/gstreamer-1.0/presets/GstVoAmrwbEnc.prs"
 
 ########### End of OE-core copy ###########
