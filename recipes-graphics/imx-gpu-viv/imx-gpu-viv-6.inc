@@ -337,23 +337,38 @@ INSANE_SKIP:libgal-imx += "build-deps"
 
 FILES:libvsc-imx += "${libdir}/libVSC${SOLIBS}"
 
+# libgbm-imx* are added to PACKAGES only under the mx8-nxp-bsp override
+# (PACKAGES_GBM:mx8-nxp-bsp), which oelint cannot resolve statically, so it does
+# not see these split packages.
+# nooelint: oelint.vars.specific
 FILES:libgbm-imx += "${libdir}/libgbm*${REALSOLIBS} ${libdir}/libgbm${SOLIBS} ${libdir}/libgbm_viv${SOLIBS}"
+# nooelint: oelint.vars.specific
 FILES:libgbm-imx-dev += "${libdir}/pkgconfig/gbm.pc ${includedir}/gbm.h"
+# nooelint: oelint.vars.specific
 RDEPENDS:libgbm-imx:append = " libdrm"
 # libgbm ships its unversioned .so in the runtime package for dlopen consumers.
-# nooelint: oelint.vars.insaneskip
+# nooelint: oelint.vars.insaneskip,oelint.vars.specific
 INSANE_SKIP:libgbm-imx += "dev-so"
 
+# libvulkan-imx* are added to PACKAGES only under the imxvulkan / mx8mm-nxp-bsp
+# overrides (PACKAGES_VULKAN), which oelint cannot resolve statically.
+# nooelint: oelint.vars.specific
 FILES:libvulkan-imx += "\
     ${libdir}/libvulkan_VSI${REALSOLIBS} \
     ${datadir}/vulkan"
+# nooelint: oelint.vars.specific
 FILES:libvulkan-imx-dev += "${includedir}/vulkan ${libdir}/libvulkan_VSI${SOLIBSDEV}"
+# nooelint: oelint.vars.specific
 RPROVIDES:libvulkan-imx = "virtual-vulkan-icd"
 
 FILES:libspirv-imx += "\
     ${libdir}/libSPIRV_viv${SOLIBS} \
 "
 
+# libopenvx-imx* are added to PACKAGES only through the computed PACKAGES_OPENVX
+# expression (bb.utils.contains on PROVIDES_OPENVX), which oelint cannot resolve
+# statically.
+# nooelint: oelint.vars.specific
 FILES:libopenvx-imx += "\
     ${libdir}/libOpenVX${REALSOLIBS} \
     ${libdir}/libOpenVXC${SOLIBS} \
@@ -361,14 +376,16 @@ FILES:libopenvx-imx += "\
     ${libdir}/libOvx*${SOLIBS} \
     ${libdir}/libArchModelSw${SOLIBS} \
 "
+# nooelint: oelint.vars.specific
 FILES:libopenvx-imx-dev += "${includedir}/VX ${libdir}/libOpenVX${SOLIBSDEV}"
+# nooelint: oelint.vars.specific
 RDEPENDS:libopenvx-imx = "${OPENCL_VX_INTRINSIC_EXTENSION_PACKAGES}"
 OPENCL_VX_INTRINSIC_EXTENSION_PACKAGES = ""
 OPENCL_VX_INTRINSIC_EXTENSION_PACKAGES:mx8qm-nxp-bsp = "libclc-imx libopencl-imx-dev"
 OPENCL_VX_INTRINSIC_EXTENSION_PACKAGES:mx8mp-nxp-bsp = "libclc-imx libopencl-imx-dev"
 # The runtime package pulls -dev packages (OpenCL/VX intrinsic extensions) by
 # design; the dev-deps QA check does not fit this prebuilt driver layout.
-# nooelint: oelint.vars.insaneskip
+# nooelint: oelint.vars.insaneskip,oelint.vars.specific
 INSANE_SKIP:libopenvx-imx += "dev-deps"
 
 FILES:libgles1-imx += "${libdir}/libGLESv1*${REALSOLIBS} ${libdir}/libGLESv1*${SOLIBS} ${libdir}/libGLES_*${REALSOLIBS} ${libdir}/libGLES_*${SOLIBS}"
