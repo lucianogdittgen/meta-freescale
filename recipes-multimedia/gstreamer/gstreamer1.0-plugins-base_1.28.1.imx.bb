@@ -88,6 +88,10 @@ EXTRA_OEMESON += "\
 "
 
 FILES:${PN}-dev += "${libdir}/gstreamer-1.0/include/gst/gl/gstglconfig.h"
+# libgsttag-1.0 is a dynamically split library package (PACKAGES_DYNAMIC in the
+# shared gstreamer1.0-plugins-common.inc) and ${MLPREFIX} is resolved at build
+# time, so oelint cannot recognise this override statically.
+# nooelint: oelint.vars.specific
 FILES:${MLPREFIX}libgsttag-1.0 += "${datadir}/gst-plugins-base/1.0/license-translations.dict"
 
 def get_opengl_cmdline_list(switch_name, options, d):
