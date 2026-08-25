@@ -20,5 +20,8 @@ COMPATIBLE_MACHINE = "(qoriq-arm64)"
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 RDEPENDS:${PN} += "bash dtc"
+# ${PN}-bash-completion is added to PACKAGES by the bash-completion bbclass,
+# which oelint cannot resolve statically.
+# nooelint: oelint.vars.specific
 RDEPENDS:${PN}-bash-completion += "bash"
 
