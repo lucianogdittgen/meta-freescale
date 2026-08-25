@@ -150,8 +150,11 @@ SUMMARY:libweston-${WESTON_MAJOR_VERSION} = "Helper library for implementing 'wa
 # nooelint: oelint.var.filesoverride
 FILES:${PN}-examples = "${bindir}/*"
 
-# nooelint: oelint.var.filesoverride
+# ${PN}-xwayland enters PACKAGES only through the computed bb.utils.contains
+# PACKAGECONFIG expression above, which oelint cannot resolve statically.
+# nooelint: oelint.var.filesoverride,oelint.vars.specific
 FILES:${PN}-xwayland = "${libdir}/libweston-${WESTON_MAJOR_VERSION}/xwayland.so"
+# nooelint: oelint.vars.specific
 RDEPENDS:${PN}-xwayland += "xwayland"
 
 RDEPENDS:${PN} += "xkeyboard-config"
