@@ -9,6 +9,15 @@ SECTION = "bsp"
 LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/GPL-2.0-only;md5=801f80980d171dd6425610833a22dbe6"
 
+# DEPENDS is assembled in logical groups, not one alphabetical list: the native
+# build tools here and via the per-SoC overrides below, then (further down) an
+# aggregated block for the firmware/bootloader outputs this package collects,
+# including computed ${IMX_EXTRA_FIRMWARE} and ${@bb.utils.contains(...)}
+# fragments. Those fragments have no meaningful alphabetical position and the
+# grouping documents what the image aggregates; a whole-token sort across all of
+# it is not a meaningful dependency order (probed: no reorder clears it without
+# destroying the grouped/conditional structure).
+# nooelint: oelint.vars.dependsordered
 DEPENDS += "xxd-native"
 DEPENDS:append:mx8m-generic-bsp = " u-boot-mkimage-native dtc-native u-boot-mkeficapsule-native"
 DEPENDS:append:mx93-generic-bsp = " u-boot-mkimage-native dtc-native u-boot-mkeficapsule-native"
