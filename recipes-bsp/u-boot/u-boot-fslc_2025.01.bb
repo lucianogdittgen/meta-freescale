@@ -7,6 +7,15 @@ DESCRIPTION = "U-Boot based on mainline U-Boot used by FSL Community BSP in \
                version, or because it is not applicable for upstreaming."
 SECTION = "bootloaders"
 
+# DEPENDS accumulates across the include chain: oe-core u-boot.inc contributes
+# computed ${@...} fragments, the shared u-boot-fslc-common.inc appends
+# bison-native flex-native for every fslc variant, and this recipe adds its own
+# build tools. These additive += groups are the correct form for a shared /
+# variant split, and no single alphabetical order spans them without merging the
+# shared-common deps into each variant (which would defeat the shared include)
+# or ordering the computed fragments (which have no alphabetical position).
+# DEPENDS is a set, so the order does not affect the build.
+# nooelint: oelint.vars.dependsordered
 DEPENDS += "bc-native dtc-native python3-setuptools-native gnutls-native"
 
 PROVIDES += "u-boot u-boot-mfgtool"
