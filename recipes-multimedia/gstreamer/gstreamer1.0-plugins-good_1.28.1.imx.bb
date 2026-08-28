@@ -106,7 +106,12 @@ LIC_FILES_CHKSUM = "\
 # Enable pulsesink in gstreamer
 PACKAGECONFIG:append = " pulseaudio"
 
-# fb implementation of v4l2 uses libdrm
+# fb implementation of v4l2 uses libdrm.
+# The base recipe's DEPENDS are alphabetically ordered; this i.MX-specific
+# conditional dependency is appended after them. It expands to a computed
+# ${@...} fragment with no meaningful alphabetical position among the plain
+# names, and DEPENDS is a set so the order does not affect the build.
+# nooelint: oelint.vars.dependsordered
 DEPENDS += "${@bb.utils.contains('PACKAGECONFIG', 'v4l2', '${DEPENDS_V4L2}', '', d)}"
 DEPENDS_V4L2 = "${@bb.utils.contains_any('DISTRO_FEATURES', 'wayland x11', '', 'libdrm', d)}"
 
