@@ -27,6 +27,14 @@ SRCREV = "e2e7c015cee997b9f992376fd2c29fa2d8813e1b"
 
 PE = "1"
 
+# This DEPENDS block is a verbatim copy of meta-oe's libcamera recipe (see the
+# "meta-openembedded copy" header above), which carries this exact ordering and
+# the repeated python3-jinja2-native. BitBake de-duplicates DEPENDS internally,
+# so the repeat is harmless, and the following line appends a computed
+# ${@...} qt fragment that has no meaningful alphabetical position. DEPENDS is a
+# set, so the order does not affect the build; keep it aligned with the meta-oe
+# source rather than reordering, which would diverge for no functional gain.
+# nooelint: oelint.vars.dependsordered
 DEPENDS = "python3-pyyaml-native python3-jinja2-native python3-ply-native python3-jinja2-native udev gnutls chrpath-native libevent libyaml"
 DEPENDS += "${@bb.utils.contains('DISTRO_FEATURES', 'qt', 'qtbase qtbase-native', '', d)}"
 
