@@ -5,6 +5,14 @@ SECTION = "bootloader"
 
 inherit python3native
 
+# This local block is alphabetically ordered, but DEPENDS accumulates across the
+# include chain: the shared u-boot-fslc-common.inc appends bison-native
+# flex-native for every fslc variant and oe-core u-boot.inc adds computed ${@...}
+# fragments. These additive += groups are the correct form for a shared / variant
+# split, and no single alphabetical order spans them without merging the
+# shared-common deps into each variant or ordering the computed fragments.
+# DEPENDS is a set, so the order does not affect the build.
+# nooelint: oelint.vars.dependsordered
 DEPENDS += "\
     dtc \
     gnutls \
