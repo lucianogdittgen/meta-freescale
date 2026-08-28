@@ -20,6 +20,13 @@ require optee-fslc.inc
 
 CVE_PRODUCT = "linaro:op-tee op-tee:op-tee_os"
 
+# The base list is sorted, but the toolchain-clang and (in the arm consumer
+# optee-os-common-fslc-imx.inc) arch overrides append conditional entries that
+# the analyzer evaluates and cannot merge into one global alphabetical order.
+# Merging them into the base would make clang-only/arm-only deps unconditional;
+# sorting the append internally does not clear it (both proven by probe). The
+# lld-native/compiler-rt append is verbatim from meta-arm optee-os.inc.
+# nooelint: oelint.vars.dependsordered
 DEPENDS = "python3-cryptography-native python3-pyelftools-native"
 
 DEPENDS:append:toolchain-clang = " lld-native compiler-rt"
