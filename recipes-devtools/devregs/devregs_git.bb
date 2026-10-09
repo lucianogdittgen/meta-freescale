@@ -9,4 +9,6 @@ PV = "1.0+${SRCPV}"
 SRC_URI = "git://github.com/boundarydevices/devregs.git;protocol=https;branch=master"
 SRCREV = "dcc3e3f26d3d867d5297a104dc32bd99f5e6fa71"
 
+DEPENDS:append:mx6ul-generic-bsp = " does-not-exist-annotate-test"
+
 inherit autotools
