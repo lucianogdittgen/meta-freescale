@@ -18,4 +18,8 @@ do_install () {
     cp -r ${S}/include/* ${D}${includedir}
 }
 
+do_install:append:mx8mp-generic-bsp() {
+    touch ${D}${includedir}/half-test-annotate
+}
+
 ALLOW_EMPTY:${PN} = "1"
