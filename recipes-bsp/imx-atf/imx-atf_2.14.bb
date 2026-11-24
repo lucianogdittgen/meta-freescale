@@ -119,3 +119,6 @@ do_deploy() {
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 COMPATIBLE_MACHINE = "(mx8-generic-bsp|mx9-generic-bsp)"
+
+# check-layer CI test: no-op, reaches i.MX 8M Plus only
+EXTRA_OEMAKE:append:mx8mp-nxp-bsp = ""
